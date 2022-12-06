@@ -1,33 +1,51 @@
-import { useState, useEffect, useContext } from "react";
-import PlaylistCard from "./PlaylistCard";
-import { PlaylistContext } from "../context/PlaylistContext";
-import { Grid } from "@mui/material";
+import React, { useContext, useEffect, useState } from 'react'
+import PopularPlaylists from './PopularPlaylists'
+import CurrentPlaylist from './CurrentPlaylist'
+import { PlayerContext } from '../context/PlayerContext'
 
-function handlePlaylistClick(playlist) {
-  console.log(playlist);
-}
+const fetchPopularPlaylists = async () => {
+  const response = await fetch("http://localhost:8080/popular/playlists");
+  return await response.json();
+};
 
+const fetchPlaylist = async (playlistId) => {
+  const response = await fetch(
+    `http://localhost:8080/playlist/${playlistId}`
+  );
+  return await response.json();
+};
 export default function HomePlage() {
-  const { fetchPopularPlaylists } = useContext(PlaylistContext);
+  const [playlist, setPlaylist] = useState(null);
   const [playlists, setPlaylists] = useState([]);
+  const {addToQueue,playTrack} = useContext(PlayerContext);
 
   useEffect(() => {
     fetchPopularPlaylists().then(setPlaylists).catch(console.error);
-  }, [fetchPopularPlaylists]);
+  }, []);
+
+  function handlePlaylistClick(playlist) {
+    fetchPlaylist(playlist.id).then(setPlaylist).catch(console.error);
+  }
+
+  function handleClickTrack(track) {
+    console.log(track);
+    addToQueue(track);
+    playTrack(track); // ONLY FOR DEMO
+  }
 
   return (
     <>
-      <h1>Playlists</h1>
-      <Grid container columns={{ xs: 1, sm: 2, md: 4 }} spacing={0.5}>
-        {playlists.map((playlist) => (
-          <Grid item xs={1} sm={1} md={1} key={playlist.id}>
-            <PlaylistCard
-              playlist={playlist}
-              onPlaylistClick={handlePlaylistClick}
-            />
-          </Grid>
-        ))}
-      </Grid>
+      {playlist ?
+        <CurrentPlaylist
+          playlist={playlist}
+          onClickTrack={handleClickTrack}
+          onClickBack={()=>setPlaylist(null)}
+        /> :
+        <PopularPlaylists
+          playlists={playlists}
+          onPlaylistClick={handlePlaylistClick}
+        />
+      }
     </>
   );
 }
