@@ -6,7 +6,7 @@ function QueueTracksList(props) {
         <>
             <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
                 {props.queue.map(track=> (
-                    <ListItem key={track.id}>
+                    <ListItem key={track.id} onClick={()=>props?.onClickTrack(track)}>
                         <ListItemAvatar>
                             <Avatar>
                                 <img src={track.album.cover_medium} alt={track.title} />
