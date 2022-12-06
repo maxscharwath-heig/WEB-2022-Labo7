@@ -3,15 +3,17 @@ import QueueTracksList from "./QueueTracksList";
 import {PlayerContext} from "../context/PlayerContext";
 
 function QueueTracksPanel() {
-    const {queue,addToQueue,fetchPlaylist,playNext} = useContext(PlayerContext);
+    const {queue,addToQueue,fetchPlaylist,playTrack} = useContext(PlayerContext);
 
     useEffect(() => {
         fetchPlaylist(1479458365).then(data => {
-            console.log(data);
             addToQueue(...data.tracks.data);
-            playNext();
         })
     },[]);
+
+    const handleClickTrack = (track) => {
+        playTrack(track);
+    }
 
     return (
         <>
@@ -19,7 +21,7 @@ function QueueTracksPanel() {
                 <span>Queue</span>
                 <span>{queue.length} tracks</span>
             </div>
-            <QueueTracksList queue={queue} />
+            <QueueTracksList queue={queue} onClickTrack={handleClickTrack} />
         </>
     )
 }
