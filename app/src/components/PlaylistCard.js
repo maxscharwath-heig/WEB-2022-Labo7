@@ -5,10 +5,10 @@ import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import { CardActionArea } from "@mui/material";
 
-export default function PlaylistCard({ playlist, onPlaylistClick }) {
+export default function PlaylistCard({ playlist, onCardClick }) {
   return (
     <Card sx={{ maxWidth: 345 }}>
-      <CardActionArea onClick={() => onPlaylistClick(playlist)}>
+      <CardActionArea onClick={() => onCardClick(playlist)}>
         <CardMedia
           component="img"
           image={playlist.picture_big}
