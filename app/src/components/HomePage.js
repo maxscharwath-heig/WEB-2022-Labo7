@@ -1,30 +1,33 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import PlaylistCard from "./PlaylistCard";
+import { PlaylistContext } from "../context/PlaylistContext";
 import { Grid } from "@mui/material";
 
-async function getPlaylists() {
-  const response = await fetch("http://localhost:8080/popular/playlists");
-  const data = await response.json();
-
-  return data;
+function handlePlaylistClick(playlist) {
+  console.log(playlist);
 }
 
 export default function HomePlage() {
+  const { fetchPopularPlaylists } = useContext(PlaylistContext);
   const [playlists, setPlaylists] = useState([]);
 
   useEffect(() => {
-    getPlaylists().then(setPlaylists).catch(console.error);
-  }, []);
+    fetchPopularPlaylists().then(setPlaylists).catch(console.error);
+  }, [fetchPopularPlaylists]);
 
   return (
-    <div className="playlist-grid">
-      <Grid container={true} spacing={0.5}>
+    <>
+      <h1>Playlists</h1>
+      <Grid container columns={{ xs: 1, sm: 2, md: 4 }} spacing={0.5}>
         {playlists.map((playlist) => (
-          <Grid item={true} xs={2} sm={4} md={4} key={playlist.id}>
-            <PlaylistCard playlist={playlist} />
+          <Grid item xs={1} sm={1} md={1} key={playlist.id}>
+            <PlaylistCard
+              playlist={playlist}
+              onPlaylistClick={handlePlaylistClick}
+            />
           </Grid>
         ))}
       </Grid>
-    </div>
+    </>
   );
 }
