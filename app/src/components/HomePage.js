@@ -3,13 +3,13 @@ import PlaylistCard from "./PlaylistCard";
 import { PlaylistContext } from "../context/PlaylistContext";
 import { Grid } from "@mui/material";
 
-function handlePlaylistClick(playlist) {
-  console.log(playlist);
-}
-
 export default function HomePlage() {
-  const { fetchPopularPlaylists } = useContext(PlaylistContext);
+  const { fetchPopularPlaylists, setPlaylist } = useContext(PlaylistContext);
   const [playlists, setPlaylists] = useState([]);
+
+  function handlePlaylistClick(playlist) {
+    setPlaylist(playlist);
+  }
 
   useEffect(() => {
     fetchPopularPlaylists().then(setPlaylists).catch(console.error);
@@ -23,7 +23,7 @@ export default function HomePlage() {
           <Grid item xs={1} sm={1} md={1} key={playlist.id}>
             <PlaylistCard
               playlist={playlist}
-              onPlaylistClick={handlePlaylistClick}
+              onCardClick={handlePlaylistClick}
             />
           </Grid>
         ))}

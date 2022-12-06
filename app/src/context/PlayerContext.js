@@ -9,13 +9,6 @@ export const PlayerProvider = ({ children }) => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [audio] = useState(new Audio());
 
-  const fetchPlaylist = async (playlistId) => {
-    const response = await fetch(
-      `http://localhost:8080/playlist/${playlistId}`
-    );
-    return await response.json();
-  };
-
   const addToQueue = (...tracks) => {
     setQueue([...queue, ...tracks]);
   };
