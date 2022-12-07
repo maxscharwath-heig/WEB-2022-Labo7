@@ -24,7 +24,7 @@ const Player = () => {
             borderColor: 'lightgray',
             backgroundColor: 'white',
             zIndex: (theme) => theme.zIndex.drawer + 1,
-            position: 'sticky',
+            position: 'fixed',
             width: '100%',
             bottom: 0,
          }}
@@ -37,9 +37,9 @@ const Player = () => {
                   </CoverImage>
                   <Box sx={{ ml: 1.5, minWidth: 0 }}>
                      <Typography variant='caption' fontWeight={500}>
-                        {currentTrack?.title}
+                        {currentTrack?.artist.name}
                      </Typography>
-                     <Typography noWrap>test</Typography>
+                     <Typography noWrap>{currentTrack?.title}</Typography>
                   </Box>
                </Box>
             </Grid>
@@ -54,21 +54,21 @@ const Player = () => {
                >
                   <Box>
                      <SkipPrevious
-                        cursor="pointer"
+                        cursor='pointer'
                         onClick={() => {
                            playPrevious()
                         }}
                      />
                      {audioState.isPlaying ? (
                         <Pause
-                           cursor="pointer"
+                           cursor='pointer'
                            onClick={() => {
                               toggleTrack()
                            }}
                         />
                      ) : (
                         <PlayArrow
-                        cursor="pointer"
+                           cursor='pointer'
                            onClick={() => {
                               toggleTrack()
                            }}
