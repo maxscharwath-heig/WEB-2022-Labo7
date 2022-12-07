@@ -11,7 +11,7 @@ export default function PopularPlaylists({playlists, onPlaylistClick}) {
           <Grid item xs={1} sm={1} md={1} key={playlist.id}>
             <PlaylistCard
               playlist={playlist}
-              onPlaylistClick={onPlaylistClick}
+              onCardClick={onPlaylistClick}
             />
           </Grid>
         ))}

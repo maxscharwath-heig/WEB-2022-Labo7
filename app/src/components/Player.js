@@ -1,6 +1,9 @@
 import { Box, Grid, Slider } from '@mui/material'
+import { PlayerContext } from '../context/PlayerContext'
+import { useContext } from 'react'
 
 const Player = ({ currentSong }) => {
+  const { audioState,currentTrack } = useContext(PlayerContext)
    return (
       <Box
          sx={{
@@ -21,19 +24,18 @@ const Player = ({ currentSong }) => {
             <Grid item xs>
                <Box>
                   <img
-                     src='https://media.istockphoto.com/id/1147544807/vector/thumbnail-image-vector-graphic.jpg?s=612x612&w=0&k=20&c=rnCKVbdxqkjlcs3xH87-9gocETqpspHFXu5dIGB4wuM='
-                     alt='cover'
-                     height={50}
+                    src={currentTrack?.album.cover_medium}
+                    alt='cover'
+                    height={50}
                   />
-                  tds
-                  sfasdf
+                 {currentTrack?.title}
                </Box>
             </Grid>
             <Grid item xs={6}>
-               <Slider size='small' defaultValue={70} aria-label='Small' valueLabelDisplay='auto' />
+               <Slider size='small' value={audioState.currentTime??0} max={audioState.duration??0} aria-label='Small' valueLabelDisplay='auto' />
             </Grid>
             <Grid item xs>
-               xs
+              {audioState.currentTime}
             </Grid>
          </Grid>
       </Box>
