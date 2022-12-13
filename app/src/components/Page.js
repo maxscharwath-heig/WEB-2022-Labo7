@@ -4,7 +4,7 @@ export default function Page({toolbar, children}) {
    return (
       <>
           {toolbar && <Toolbar children={toolbar}/>}
-          <Box component="main" sx={{ p: 3, pt:0 }}>
+          <Box component="main" sx={{ px: 3, overflow: "auto", height: "100%" }}>
               {children}
           </Box>
       </>

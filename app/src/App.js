@@ -13,7 +13,7 @@ const drawerWidth = 330;
 function App() {
   return (
     <PlayerProvider>
-      <Box sx={{ display: "flex" }}>
+      <Box sx={{ display: "flex", height: "100vh", overflow: "hidden" }}>
         <Box component="main" sx={{ flexGrow: 1 }}>
           <HomePage />
         </Box>
