@@ -1,8 +1,9 @@
-import { List, Divider, Box, Button } from '@mui/material'
+import {List, Divider, Box, Button, Toolbar} from '@mui/material'
 import { ArrowBack } from '@mui/icons-material'
 import SongRow from './SongRow'
 import React from 'react'
 import QueueMusicIcon from '@mui/icons-material/QueueMusic';
+import Page from "./Page";
 
 export default function CurrentPlaylists({ playlist, onClickTrack, onClickBack, onClickAddToQueue }) {
 
@@ -17,21 +18,11 @@ export default function CurrentPlaylists({ playlist, onClickTrack, onClickBack, 
    }
 
    return (
-      <>
-         <Box
-            onClick={() => onClickBack()}
-            sx={{
-               display: 'flex',
-               alignItems: 'center',
-            }}
-         >
-            <ArrowBack
-               sx={{
-                  flexShrink: 0,
-               }}
-            />
-            <span>Back to playlists</span>
-         </Box>
+      <Page
+          toolbar={
+              <Button variant="plain" startIcon={<ArrowBack />} size='small' onClick={() => onClickBack()}>Back to playlists</Button>
+          }
+      >
          <Box
             sx={{
                display: 'flex',
@@ -55,6 +46,6 @@ export default function CurrentPlaylists({ playlist, onClickTrack, onClickBack, 
                 </>
             ))}
          </List>
-      </>
+      </Page>
    )
 }

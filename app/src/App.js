@@ -14,7 +14,7 @@ function App() {
    return (
       <PlayerProvider>
          <Box sx={{ display: 'flex' }}>
-            <Box component='main' sx={{ flexGrow: 1, p: 3 }}>
+            <Box component='main' sx={{ flexGrow: 1 }}>
                <HomePage />
             </Box>
             <Drawer
