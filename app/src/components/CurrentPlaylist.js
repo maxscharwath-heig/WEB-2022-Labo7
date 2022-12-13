@@ -1,9 +1,21 @@
-import { List, Divider, Box } from '@mui/material'
+import { List, Divider, Box, Button } from '@mui/material'
 import { ArrowBack } from '@mui/icons-material'
 import SongRow from './SongRow'
 import React from 'react'
+import QueueMusicIcon from '@mui/icons-material/QueueMusic';
 
-export default function PopularPlaylists({ playlist, onClickTrack, onClickBack }) {
+export default function CurrentPlaylists({ playlist, onClickTrack, onClickBack, onClickAddToQueue }) {
+
+   function handleAddToQueue(e, track) {
+      e.stopPropagation()
+      onClickAddToQueue(track)
+   }
+
+   function handleClickTrack(e, track) {
+      e.stopPropagation()
+      onClickTrack(track)
+   }
+
    return (
       <>
          <Box
@@ -34,10 +46,14 @@ export default function PopularPlaylists({ playlist, onClickTrack, onClickBack }
          </Box>
 
          <List>
-            {playlist.tracks.data.map((track) => [
-               <SongRow track={track} onClick={() => onClickTrack(track)} key={track.id} />,
-               <Divider component='li' />,
-            ])}
+            {playlist.tracks.data.map((track) => (
+                <>
+                    <SongRow track={track} onClick={(e) => handleClickTrack(e,track)} key={track.id}>
+                        <Button variant="outlined" startIcon={<QueueMusicIcon />} size='small' onClick={(e)=>handleAddToQueue(e,track)}>Add to queue</Button>
+                    </SongRow>
+                    <Divider component='li' />
+                </>
+            ))}
          </List>
       </>
    )

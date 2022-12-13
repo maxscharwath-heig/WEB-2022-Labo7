@@ -1,17 +1,21 @@
-import { ListItem, ListItemText } from '@mui/material'
+import { ListItem, ListItemButton, ListItemText, Avatar } from '@mui/material'
 
-const SongRow = ({ track, onClick }) => {
+const SongRow = ({ track, onClick, children }) => {
    return (
-      <div onClick={onClick}>
-         <ListItem
-            sx={{
+       <ListItem
+           secondaryAction={children}
+           disablePadding
+       >
+         <ListItemButton
+             onClick={onClick}
+             sx={{
                display: 'flex',
             }}
          >
-            <img src={track.album.cover_small} alt='trackCover' />
+            <Avatar  src={track.album.cover_small} alt='trackCover' variant='square'  sx={{marginRight: '1rem'}}/>
             <ListItemText primary={track.title} secondary={track.artist.name} />
-         </ListItem>
-      </div>
+         </ListItemButton>
+       </ListItem>
    )
 }
 

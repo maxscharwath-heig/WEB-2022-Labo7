@@ -27,19 +27,14 @@ export default function HomePlage() {
     fetchPlaylist(playlist.id).then(setPlaylist).catch(console.error);
   }
 
-  function handleClickTrack(track) {
-    console.log(track);
-    addToQueue(track);
-    playTrack(track); // ONLY FOR DEMO
-  }
-
   return (
     <>
       {playlist ?
         <CurrentPlaylist
           playlist={playlist}
-          onClickTrack={handleClickTrack}
+          onClickTrack={playTrack}
           onClickBack={()=>setPlaylist(null)}
+          onClickAddToQueue={addToQueue}
         /> :
         <PopularPlaylists
           playlists={playlists}
