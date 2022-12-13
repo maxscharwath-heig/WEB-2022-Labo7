@@ -48,6 +48,10 @@ export const PlayerProvider = ({ children }) => {
       }
    }
 
+   const setCurrentTime = (time) => {
+        audio.currentTime = time
+   }
+
    useEffect(() => {
       const updateAudioState = () => {
          setAudioState({
@@ -80,6 +84,7 @@ export const PlayerProvider = ({ children }) => {
             playTrack,
             playNext,
             playPrevious,
+            setCurrentTime,
          }}
       >
          {children}
