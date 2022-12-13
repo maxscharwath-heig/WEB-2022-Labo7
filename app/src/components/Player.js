@@ -51,9 +51,7 @@ const Player = () => {
             borderColor: 'lightgray',
             backgroundColor: 'white',
             zIndex: (theme) => theme.zIndex.drawer + 1,
-            position: 'fixed',
             width: '100%',
-            bottom: 0,
          }}
       >
          <Grid container alignItems='center'>

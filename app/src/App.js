@@ -13,28 +13,27 @@ const drawerWidth = 330;
 function App() {
   return (
     <PlayerProvider>
-      <Box sx={{ display: "flex", height: "100vh", overflow: "hidden" }}>
-        <Box component="main" sx={{ flexGrow: 1 }}>
+      <Box sx={{ display: "flex", height: "100vh", flexDirection: "column" }}>
+        <Box component="main" sx={{ display:"flex", overflow:"hidden" }}>
           <HomePage />
-        </Box>
-        <Drawer
-          variant="permanent"
-          anchor="right"
-          sx={{
-            width: drawerWidth,
-            flexShrink: 0,
-            [`& .MuiDrawer-paper`]: {
+          <Drawer
+            variant="permanent"
+            anchor="right"
+            sx={{
               width: drawerWidth,
-              boxSizing: "border-box",
-            },
-          }}
-        >
-          <Box sx={{ overflow: "auto" }}>
-            <QueueTracksPanel />
-          </Box>
-        </Drawer>
+              [`& .MuiDrawer-paper`]: {
+                width: drawerWidth,
+                boxSizing: "border-box",
+              },
+            }}
+          >
+            <Box sx={{ overflow: "auto" }}>
+              <QueueTracksPanel />
+            </Box>
+          </Drawer>
+        </Box>
+        <Player />
       </Box>
-      <Player />
     </PlayerProvider>
   );
 }

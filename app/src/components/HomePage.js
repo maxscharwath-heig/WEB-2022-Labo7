@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import PopularPlaylists from './PopularPlaylists'
 import CurrentPlaylist from './CurrentPlaylist'
 import { PlayerContext } from '../context/PlayerContext'
+import { Box } from '@mui/material'
 
 const fetchPopularPlaylists = async () => {
   const response = await fetch("http://localhost:8080/popular/playlists");
@@ -28,7 +29,7 @@ export default function HomePlage() {
   }
 
   return (
-    <>
+    <Box sx={{ display: "flex", flexDirection: "column", flex:1 }}>
       {playlist ?
         <CurrentPlaylist
           playlist={playlist}
@@ -41,6 +42,6 @@ export default function HomePlage() {
           onPlaylistClick={handlePlaylistClick}
         />
       }
-    </>
+    </Box>
   );
 }

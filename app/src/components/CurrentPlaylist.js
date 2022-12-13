@@ -34,35 +34,37 @@ export default function CurrentPlaylists({
         </Button>
       }
     >
-      <Box
-        sx={{
-          display: "flex",
-        }}
-      >
-        <img src={playlist.picture_medium} alt="playlistCover" />
-        <div>
-          <h3>Playlist</h3>
-          <h1>{playlist.title}</h1>
-          <h2>{playlist.id}</h2>
-        </div>
+      <Box sx={{ display: "flex", flexDirection: "column", height: "100%" }}>
+        <Box
+          sx={{
+            display: "flex",
+          }}
+        >
+          <img src={playlist.picture_medium} alt="playlistCover" />
+          <div>
+            <h3>Playlist</h3>
+            <h1>{playlist.title}</h1>
+            <h2>{playlist.id}</h2>
+          </div>
+        </Box>
+        <List sx={{overflow:'auto',flex:1, mt: 2 }}>
+          {playlist.tracks.data.map((track) => (
+            <React.Fragment key={track.id}>
+              <SongRow track={track} onClick={(e) => handleClickTrack(e, track)}>
+                <Button
+                  variant="outlined"
+                  startIcon={<QueueMusicIcon />}
+                  size="small"
+                  onClick={(e) => handleAddToQueue(e, track)}
+                >
+                  Add to queue
+                </Button>
+              </SongRow>
+              <Divider component="li" />
+            </React.Fragment>
+          ))}
+        </List>
       </Box>
-      <List>
-        {playlist.tracks.data.map((track) => (
-          <React.Fragment key={track.id}>
-            <SongRow track={track} onClick={(e) => handleClickTrack(e, track)}>
-              <Button
-                variant="outlined"
-                startIcon={<QueueMusicIcon />}
-                size="small"
-                onClick={(e) => handleAddToQueue(e, track)}
-              >
-                Add to queue
-              </Button>
-            </SongRow>
-            <Divider component="li" />
-          </React.Fragment>
-        ))}
-      </List>
     </Page>
   );
 }
