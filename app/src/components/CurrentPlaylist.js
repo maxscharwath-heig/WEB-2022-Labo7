@@ -1,4 +1,4 @@
-import { List, Divider, Box, Button, Toolbar } from "@mui/material";
+import { List, Divider, Box, Button } from "@mui/material";
 import { ArrowBack } from "@mui/icons-material";
 import SongRow from "./SongRow";
 import React from "react";
@@ -46,7 +46,6 @@ export default function CurrentPlaylists({
           <h2>{playlist.id}</h2>
         </div>
       </Box>
-
       <List>
         {playlist.tracks.data.map((track) => (
           <React.Fragment key={track.id}>
