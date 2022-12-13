@@ -7,14 +7,15 @@ function QueueTracksList({ queue, onSongClick }) {
     <>
       <List sx={{ width: "100%", maxWidth: 460, bgcolor: "background.paper" }}>
         {queue.map((track) => [
-          <SongRow
-            track={track}
-            onClick={() => {
-              onSongClick(track);
-            }}
-            key={track.id}
-          />,
-          <Divider component="li" />,
+          <React.Fragment key={track.id}>
+            <SongRow
+              track={track}
+              onClick={() => {
+                onSongClick(track);
+              }}
+            />
+            <Divider component="li" />
+          </React.Fragment>,
         ])}
       </List>
     </>
