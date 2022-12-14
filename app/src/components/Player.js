@@ -144,13 +144,19 @@ const Player = () => {
         </Grid>
         <Grid item xs={4} paddingRight={2}>
           <Box textAlign="right">
-            Powered by
-            <br />
+            <Typography
+              component={"div"}
+              variant="caption"
+              fontWeight={500}
+              sx={{ marginBottom: "-8px" }}
+            >
+              Powered by
+            </Typography>
             <img
-              src="/deezer-logo.svg"
-              alt="Deezer logo"
+              src="/study-logo.svg"
+              alt="StudyStorm logo"
               id="footer-logo"
-              height={20}
+              height={35}
             />
           </Box>
         </Grid>
