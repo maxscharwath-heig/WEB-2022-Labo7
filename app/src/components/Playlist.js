@@ -54,20 +54,6 @@ export default function Playlist() {
     playTrack(track);
   }
 
-  const creationYear = () => {
-    if (playlist) {
-      return new Date(playlist.creation_date).getFullYear();
-    }
-    return "";
-  };
-
-  const playlistDurationMinutes = () => {
-    if (playlist) {
-      return Math.ceil(playlist.duration / 60);
-    }
-    return "";
-  };
-
   return (
     <Page
       toolbar={
@@ -97,13 +83,19 @@ export default function Playlist() {
               paddingLeft: 2,
             }}
           >
-            <h3>Playlist</h3>
-            <Typography variant="h4">
-              {playlist ? playlist.title : <Skeleton width={200} />}
-            </Typography>
-            <small>
+             <Typography
+                 variant='body2'
+                 sx={{
+                    textTransform: 'uppercase',
+                 }}
+             >
+                Playlist
+             </Typography>
+             <Typography variant='h4'>{playlist ? playlist.title : <Skeleton width={200} />}</Typography>
+             <Typography variant='caption' component='div'>{playlist ? `By ${playlist?.creator.name}` : <Skeleton width={200} />}</Typography>
+            <Typography variant='caption' component='div'>
               {playlist ? <PlaylistInfo playlist={playlist} /> : <Skeleton width={200} />}
-            </small>
+            </Typography>
           </Box>
         </Box>
         <List sx={{ overflow: "auto", flex: 1, mt: 2 }}>
