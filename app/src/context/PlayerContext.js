@@ -21,13 +21,18 @@ export const PlayerProvider = ({ children }) => {
       if (audioState.isPlaying) {
          audio.pause()
       } else {
-         audio.play()
+         if (!currentTrack && queue.length > 0) {
+            playTrack(queue[0])
+         } else {
+            audio.play()
+         }
       }
    }
 
    const playTrack = (track) => {
       setCurrentTrack(track)
       audio.src = track.preview
+      document.title = track.title
       audio.play()
    }
 
@@ -49,7 +54,7 @@ export const PlayerProvider = ({ children }) => {
    }
 
    const setCurrentTime = (time) => {
-        audio.currentTime = time
+      audio.currentTime = time
    }
 
    useEffect(() => {
