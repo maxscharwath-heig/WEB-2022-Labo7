@@ -1,5 +1,5 @@
 import PlaylistCard from './PlaylistCard'
-import { Grid } from '@mui/material'
+import { Grid, Skeleton } from '@mui/material'
 import Page from './Page'
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
@@ -10,7 +10,7 @@ const fetchPopularPlaylists = async () => {
 }
 
 export default function PopularPlaylists() {
-   const [playlists, setPlaylists] = useState([])
+   const [playlists, setPlaylists] = useState(null)
    const navigate = useNavigate()
 
    useEffect(() => {
@@ -24,11 +24,17 @@ export default function PopularPlaylists() {
    return (
       <Page toolbar={<h1>Popular playlists</h1>}>
          <Grid container columns={{ xs: 1, sm: 2, md: 4 }} spacing={0.5}>
-            {playlists.map((playlist) => (
-               <Grid item xs={1} sm={1} md={1} key={playlist.id}>
-                  <PlaylistCard playlist={playlist} onCardClick={handlePlaylistClick} />
-               </Grid>
-            ))}
+            {playlists
+               ? playlists.map((playlist) => (
+                    <Grid item xs={1} sm={1} md={1} key={playlist.id}>
+                       <PlaylistCard playlist={playlist} onCardClick={handlePlaylistClick} />
+                    </Grid>
+                 ))
+               : [...Array(50)].map((_, index) => (
+                    <Grid item xs={1} sm={1} md={1} key={index}>
+                       <Skeleton variant='rectangular' sx={{ height: 'auto', width: '100%', aspectRatio: '1/1' }} />
+                    </Grid>
+                 ))}
          </Grid>
       </Page>
    )

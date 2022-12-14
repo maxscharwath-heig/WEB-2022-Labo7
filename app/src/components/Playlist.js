@@ -9,7 +9,6 @@ import { useNavigate, useParams } from 'react-router-dom'
 
 const fetchPlaylist = async (playlistId) => {
    const response = await fetch(`http://localhost:8080/playlist/${playlistId}`)
-   await new Promise((resolve) => setTimeout(resolve, 1000))
    return await response.json()
 }
 
