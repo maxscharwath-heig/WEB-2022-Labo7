@@ -128,7 +128,7 @@ export default function Playlist() {
                     track={track}
                     onClick={(e) => handleClickTrack(e, track)}
                   >
-                    <Tooltip title="Add song to queue" placement="top">
+                    <Tooltip title="Add song to queue" placement="left">
                       <IconButton
                         aria-label="add to queue"
                         size="small"

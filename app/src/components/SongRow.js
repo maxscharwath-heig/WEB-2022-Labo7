@@ -1,4 +1,5 @@
 import { Avatar, ListItem, ListItemButton, ListItemText } from "@mui/material";
+import MusicNoteIcon from "@mui/icons-material/MusicNote";
 
 const SongRow = ({ track, onClick, children }) => {
   return (
@@ -14,7 +15,9 @@ const SongRow = ({ track, onClick, children }) => {
           alt="trackCover"
           variant="rounded"
           sx={{ marginRight: "1rem" }}
-        />
+        >
+          <MusicNoteIcon />
+        </Avatar>
         <ListItemText primary={track.title} secondary={track.artist.name} />
       </ListItemButton>
     </ListItem>

@@ -10,6 +10,7 @@ import {
 import { PlayerContext } from "../context/PlayerContext";
 import { useContext, useEffect, useState } from "react";
 import { Pause, PlayArrow, SkipNext, SkipPrevious } from "@mui/icons-material";
+import MusicNoteIcon from "@mui/icons-material/MusicNote";
 
 function FormattedTime({ duration }) {
   if (!duration) return <small>-:-</small>;
@@ -88,8 +89,10 @@ const Player = () => {
                 src={currentTrack.album.cover_medium}
                 alt="trackCover"
                 variant="square"
-                sx={{ height: 75, width: "auto" }}
-              />
+                sx={{ height: 75, width: 75 }}
+              >
+                <MusicNoteIcon fontSize="large" />
+              </Avatar>
               <Box sx={{ ml: 1.5, minWidth: 0 }}>
                 <Typography variant="caption" fontWeight={500}>
                   {currentTrack?.artist.name}
