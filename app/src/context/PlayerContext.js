@@ -46,14 +46,22 @@ export const PlayerProvider = ({ children }) => {
       setQueue(queue.slice(1));
       setPastTracks([currentTrack, ...pastTracks]);
       playTrack(nextTrack);
+    } else {
+      setCurrentTrack(null);
     }
   };
 
   const playPrevious = () => {
+    if (audioState.currentTime >= 4) {
+      audio.currentTime = 0;
+      return;
+    }
     if (pastTracks.length > 0) {
       const previousTrack = pastTracks[0];
       setPastTracks(pastTracks.slice(1));
       playTrack(previousTrack);
+    } else {
+      setCurrentTrack(null);
     }
   };
 
