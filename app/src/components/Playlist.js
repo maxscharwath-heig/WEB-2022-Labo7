@@ -1,4 +1,4 @@
-import {Box, Button, Divider, List} from "@mui/material";
+import {Box, Button, Divider, List, ListItem, ListItemButton, ListItemText, Skeleton, Typography} from "@mui/material";
 import {ArrowBack} from "@mui/icons-material";
 import SongRow from "./SongRow";
 import React, {useContext, useEffect, useState} from "react";
@@ -11,6 +11,7 @@ const fetchPlaylist = async (playlistId) => {
     const response = await fetch(
         `http://localhost:8080/playlist/${playlistId}`
     );
+    await new Promise((resolve) => setTimeout(resolve, 1000));
     return await response.json();
 };
 
@@ -53,15 +54,17 @@ export default function Playlist() {
                         display: "flex",
                     }}
                 >
-                    <img src={playlist?.picture_medium} alt="playlistCover"/>
+                    {playlist ? <img src={playlist.picture_medium} alt="playlistCover"/>
+                        : <Skeleton variant="rectangular" width={250} height={250}/>}
                     <div>
                         <h3>Playlist</h3>
-                        <h1>{playlist?.title}</h1>
-                        <h2>{playlist?.id}</h2>
+                        <Typography variant="h4">
+                            {playlist ? playlist.title : <Skeleton width={200}/>}
+                        </Typography>
                     </div>
                 </Box>
                 <List sx={{overflow: 'auto', flex: 1, mt: 2}}>
-                    {playlist?.tracks.data.map((track) => (
+                    {playlist ? playlist.tracks.data.map((track) => (
                         <React.Fragment key={track.id}>
                             <SongRow track={track} onClick={(e) => handleClickTrack(e, track)}>
                                 <Button
@@ -75,7 +78,17 @@ export default function Playlist() {
                             </SongRow>
                             <Divider component="li"/>
                         </React.Fragment>
-                    ))}
+                    )) : (
+                        // 10 Skeletons for 10 tracks
+                        [...Array(10)].map((_, index) => (
+                            <ListItemButton key={index} disablePadding>
+                                <ListItem>
+                                    <Skeleton variant="rectangular" height={40} width={40} sx={{marginRight: '1rem'}}/>
+                                    <ListItemText primary={<Skeleton width={200}/>} secondary={<Skeleton width={100}/>}/>
+                                </ListItem>
+                            </ListItemButton>
+                        ))
+                    )}
                 </List>
             </Box>
         </Page>
