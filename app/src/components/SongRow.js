@@ -8,12 +8,13 @@ import {
   Typography,
 } from "@mui/material";
 import MusicNoteIcon from "@mui/icons-material/MusicNote";
-import PlayCircleIcon from "@mui/icons-material/PlayCircle";
+import PlayingIcon from "./PlayingIcon";
 
 const SongRow = ({ isPlaying, index, track, onClick, children }) => {
   return (
     <ListItem secondaryAction={children} disablePadding>
       <ListItemButton
+        selected = {isPlaying}
         onClick={onClick}
         sx={{
           display: "flex",
@@ -42,19 +43,19 @@ const SongRow = ({ isPlaying, index, track, onClick, children }) => {
                 display: "flex",
                 justifyContent: "center",
                 alignItems: "center",
-                bottom: 0,
-                left: 0,
+                top: 0,
+                right: 0,
                 width: "100%",
                 height: "100%",
                 color: "white",
                 bgcolor: "rgba(0, 0, 0, 0.54)",
               }}
             >
-              <PlayCircleIcon />
+                <PlayingIcon/>
             </Box>
           )}
         </Card>
-        <ListItemText primary={track.title} secondary={track.artist.name} />
+        <ListItemText primary={track.title} secondary={track.artist.name} sx={{ flex:1 }} />
       </ListItemButton>
     </ListItem>
   );

@@ -78,7 +78,7 @@ export default function Playlist() {
           }}
         >
           {playlist ? (
-            <Card>
+            <Card sx={{ width: 250, height: 250}}>
               <CardMedia
                 component="img"
                 image={playlist.picture_medium}
@@ -91,6 +91,7 @@ export default function Playlist() {
           <Box
             sx={{
               paddingLeft: 2,
+              flex:1
             }}
           >
             <Typography
