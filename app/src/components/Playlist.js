@@ -38,6 +38,13 @@ export default function Playlist() {
       return ''
    }
 
+   const playlistDurationMinutes = () => {
+      if (playlist) {
+         return Math.ceil(playlist.duration / 60)
+      }
+      return ''
+   }
+
    return (
       <Page
          toolbar={
@@ -75,7 +82,7 @@ export default function Playlist() {
                   <br></br>
                   <small>
                      {playlist ? (
-                        `${creationYear()} · ${playlist?.nb_tracks} tracks · TODO minutes`
+                        `${creationYear()} · ${playlist?.nb_tracks} tracks · ${playlistDurationMinutes()} minutes`
                      ) : (
                         <Skeleton width={200} />
                      )}
