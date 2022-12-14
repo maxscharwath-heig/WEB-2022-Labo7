@@ -1,12 +1,12 @@
-import { Box, Toolbar } from '@mui/material'
+import { Box, Toolbar } from "@mui/material";
 
 export default function Page({ toolbar, children }) {
-   return (
-      <>
-         {toolbar && <Toolbar children={toolbar} />}
-         <Box component='main' sx={{ px: 3, overflow: 'auto', height: '100%' }}>
-            {children}
-         </Box>
-      </>
-   )
+  return (
+    <>
+      {toolbar && <Toolbar children={toolbar} />}
+      <Box component="main" sx={{ px: 3, overflow: "auto", height: "100%" }}>
+        {children}
+      </Box>
+    </>
+  );
 }
