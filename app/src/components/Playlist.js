@@ -1,6 +1,8 @@
 import {
   Box,
   Button,
+  Card,
+  CardMedia,
   Divider,
   IconButton,
   List,
@@ -18,7 +20,7 @@ import QueueMusicIcon from "@mui/icons-material/QueueMusic";
 import Page from "./Page";
 import { PlayerContext } from "../context/PlayerContext";
 import { useNavigate, useParams } from "react-router-dom";
-import humanizeDuration from 'humanize-duration'
+import humanizeDuration from "humanize-duration";
 
 const fetchPlaylist = async (playlistId) => {
   const response = await fetch(`http://localhost:8080/playlist/${playlistId}`);
@@ -26,13 +28,15 @@ const fetchPlaylist = async (playlistId) => {
 };
 
 function PlaylistInfo({ playlist }) {
-   const totalDurationMs = playlist.tracks.data.reduce((acc, track) => acc + track.duration, 0)*1000;
-   const humanizedDuration = humanizeDuration(totalDurationMs, { round: true, largest: 2 })
-   const creationYear = new Date(playlist.creation_date).getFullYear()
+  const totalDurationMs =
+    playlist.tracks.data.reduce((acc, track) => acc + track.duration, 0) * 1000;
+  const humanizedDuration = humanizeDuration(totalDurationMs, {
+    round: true,
+    largest: 2,
+  });
+  const creationYear = new Date(playlist.creation_date).getFullYear();
 
-   return (
-       `${creationYear} · ${playlist.nb_tracks} tracks · ${humanizedDuration}`
-   )
+  return `${creationYear} · ${playlist.nb_tracks} tracks · ${humanizedDuration}`;
 }
 
 export default function Playlist() {
@@ -74,7 +78,13 @@ export default function Playlist() {
           }}
         >
           {playlist ? (
-            <img src={playlist.picture_medium} alt="playlistCover" />
+            <Card>
+              <CardMedia
+                component="img"
+                image={playlist.picture_medium}
+                alt={playlist.title}
+              />
+            </Card>
           ) : (
             <Skeleton variant="rectangular" width={250} height={250} />
           )}
@@ -83,18 +93,30 @@ export default function Playlist() {
               paddingLeft: 2,
             }}
           >
-             <Typography
-                 variant='body2'
-                 sx={{
-                    textTransform: 'uppercase',
-                 }}
-             >
-                Playlist
-             </Typography>
-             <Typography variant='h4'>{playlist ? playlist.title : <Skeleton width={200} />}</Typography>
-             <Typography variant='caption' component='div'>{playlist ? `By ${playlist?.creator.name}` : <Skeleton width={200} />}</Typography>
-            <Typography variant='caption' component='div'>
-              {playlist ? <PlaylistInfo playlist={playlist} /> : <Skeleton width={200} />}
+            <Typography
+              variant="body2"
+              sx={{
+                textTransform: "uppercase",
+              }}
+            >
+              {playlist ? "Playlist" : <Skeleton width={70} />}
+            </Typography>
+            <Typography variant="h4">
+              {playlist ? playlist.title : <Skeleton width={200} />}
+            </Typography>
+            <Typography variant="caption" component="div">
+              {playlist ? (
+                `By ${playlist?.creator.name}`
+              ) : (
+                <Skeleton width={170} />
+              )}
+            </Typography>
+            <Typography variant="caption" component="div">
+              {playlist ? (
+                <PlaylistInfo playlist={playlist} />
+              ) : (
+                <Skeleton width={200} />
+              )}
             </Typography>
           </Box>
         </Box>
@@ -121,8 +143,8 @@ export default function Playlist() {
               ))
             : // 10 Skeletons for 10 tracks
               [...Array(10)].map((_, index) => (
-                <ListItemButton key={index}>
-                  <ListItem>
+                <ListItem key={index} disablePadding>
+                  <ListItemButton>
                     <Skeleton
                       variant="rectangular"
                       height={40}
@@ -133,8 +155,8 @@ export default function Playlist() {
                       primary={<Skeleton width={200} />}
                       secondary={<Skeleton width={100} />}
                     />
-                  </ListItem>
-                </ListItemButton>
+                  </ListItemButton>
+                </ListItem>
               ))}
         </List>
       </Box>

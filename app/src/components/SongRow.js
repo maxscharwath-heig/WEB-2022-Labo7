@@ -12,7 +12,7 @@ const SongRow = ({ track, onClick, children }) => {
         <Avatar
           src={track.album.cover_small}
           alt="trackCover"
-          variant="square"
+          variant="rounded"
           sx={{ marginRight: "1rem" }}
         />
         <ListItemText primary={track.title} secondary={track.artist.name} />
