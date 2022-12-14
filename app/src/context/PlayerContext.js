@@ -17,8 +17,8 @@ export const PlayerProvider = ({ children }) => {
     setQueue([...queue, ...tracks]);
   };
 
-  const removeFromQueue = (track) => {
-    setQueue(queue.filter((t) => t.id !== track.id));
+  const removeFromQueueAt = (targetIndex) => {
+    setQueue(queue.filter((_, index) => index !== targetIndex));
   };
 
   const toggleTrack = () => {
@@ -94,7 +94,7 @@ export const PlayerProvider = ({ children }) => {
         playNext,
         playPrevious,
         setCurrentTime,
-        removeFromQueue,
+        removeFromQueueAt,
       }}
     >
       {children}

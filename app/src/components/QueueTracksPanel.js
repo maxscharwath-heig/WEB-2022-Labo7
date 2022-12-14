@@ -3,7 +3,7 @@ import QueueTracksList from "./QueueTracksList";
 import { PlayerContext } from "../context/PlayerContext";
 
 function QueueTracksPanel() {
-  const { queue, playTrack, removeFromQueue } = useContext(PlayerContext);
+  const { queue, playTrack, removeFromQueueAt } = useContext(PlayerContext);
 
   return (
     <>
@@ -16,7 +16,7 @@ function QueueTracksPanel() {
       <QueueTracksList
         queue={queue}
         onSongClick={playTrack}
-        onButtonClick={removeFromQueue}
+        onButtonClick={removeFromQueueAt}
       />
     </>
   );

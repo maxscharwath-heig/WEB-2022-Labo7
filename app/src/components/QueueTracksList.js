@@ -7,7 +7,7 @@ function QueueTracksList({ queue, onSongClick, onButtonClick }) {
   return (
     <>
       <List sx={{ width: "100%", maxWidth: 460, bgcolor: "background.paper" }}>
-        {queue.map((track) => [
+        {queue.map((track, index) => [
           <React.Fragment key={track.id}>
             <SongRow
               track={track}
@@ -19,7 +19,7 @@ function QueueTracksList({ queue, onSongClick, onButtonClick }) {
                 <IconButton
                   aria-label="remove from queue"
                   size="small"
-                  onClick={() => onButtonClick(track)}
+                  onClick={() => onButtonClick(index)}
                 >
                   <PlaylistRemoveIcon />
                 </IconButton>
