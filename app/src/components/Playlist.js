@@ -63,8 +63,17 @@ export default function Playlist() {
                      paddingLeft: 2,
                   }}
                >
-                  <h3>Playlist</h3>
+                  <Typography
+                     variant='body2'
+                     sx={{
+                        textTransform: 'uppercase',
+                     }}
+                  >
+                     Playlist
+                  </Typography>
                   <Typography variant='h4'>{playlist ? playlist.title : <Skeleton width={200} />}</Typography>
+                  <small>{playlist ? `By ${playlist?.creator.name}` : <Skeleton width={200} />}</small>
+                  <br></br>
                   <small>
                      {playlist ? (
                         `${creationYear()} · ${playlist?.nb_tracks} tracks · TODO minutes`
