@@ -47,6 +47,7 @@ export const PlayerProvider = ({ children }) => {
       setPastTracks([currentTrack, ...pastTracks]);
       playTrack(nextTrack);
     } else {
+      audio.src = "";
       setCurrentTrack(null);
     }
   };
@@ -61,6 +62,7 @@ export const PlayerProvider = ({ children }) => {
       setPastTracks(pastTracks.slice(1));
       playTrack(previousTrack);
     } else {
+      audio.src = "";
       setCurrentTrack(null);
     }
   };
