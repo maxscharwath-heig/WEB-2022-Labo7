@@ -1,4 +1,4 @@
-import { Box, Button, Divider, List } from '@mui/material'
+import { Box, Button, Divider, List, ListItem, ListItemButton, ListItemText, Skeleton, Typography } from '@mui/material'
 import { ArrowBack } from '@mui/icons-material'
 import SongRow from './SongRow'
 import React, { useContext, useEffect, useState } from 'react'
@@ -9,6 +9,7 @@ import { useNavigate, useParams } from 'react-router-dom'
 
 const fetchPlaylist = async (playlistId) => {
    const response = await fetch(`http://localhost:8080/playlist/${playlistId}`)
+   await new Promise((resolve) => setTimeout(resolve, 1000))
    return await response.json()
 }
 
@@ -52,36 +53,53 @@ export default function Playlist() {
                   display: 'flex',
                }}
             >
-               <img src={playlist?.picture_medium} alt='playlistCover' />
+               {playlist ? (
+                  <img src={playlist.picture_medium} alt='playlistCover' />
+               ) : (
+                  <Skeleton variant='rectangular' width={250} height={250} />
+               )}
                <Box
                   sx={{
                      paddingLeft: 2,
                   }}
                >
-                  <h2 className='body-1'>Playlist</h2>
-                  <h1>{playlist?.title}</h1>
-                  <h5>By {playlist?.creator.name}</h5>
+                  <h3>Playlist</h3>
+                  <Typography variant='h4'>{playlist ? playlist.title : <Skeleton width={200} />}</Typography>
                   <small>
-                     {creationYear()} · {playlist?.nb_tracks} tracks · TODO minutes
+                     {playlist ? (
+                        `${creationYear()} · ${playlist?.nb_tracks} tracks · TODO minutes`
+                     ) : (
+                        <Skeleton width={200} />
+                     )}
                   </small>
                </Box>
             </Box>
             <List sx={{ overflow: 'auto', flex: 1, mt: 2 }}>
-               {playlist?.tracks.data.map((track) => (
-                  <React.Fragment key={track.id}>
-                     <SongRow track={track} onClick={(e) => handleClickTrack(e, track)}>
-                        <Button
-                           variant='outlined'
-                           startIcon={<QueueMusicIcon />}
-                           size='small'
-                           onClick={(e) => handleAddToQueue(e, track)}
-                        >
-                           Add to queue
-                        </Button>
-                     </SongRow>
-                     <Divider component='li' />
-                  </React.Fragment>
-               ))}
+               {playlist
+                  ? playlist.tracks.data.map((track) => (
+                       <React.Fragment key={track.id}>
+                          <SongRow track={track} onClick={(e) => handleClickTrack(e, track)}>
+                             <Button
+                                variant='outlined'
+                                startIcon={<QueueMusicIcon />}
+                                size='small'
+                                onClick={(e) => handleAddToQueue(e, track)}
+                             >
+                                Add to queue
+                             </Button>
+                          </SongRow>
+                          <Divider component='li' />
+                       </React.Fragment>
+                    ))
+                  : // 10 Skeletons for 10 tracks
+                    [...Array(10)].map((_, index) => (
+                       <ListItemButton key={index}>
+                          <ListItem>
+                             <Skeleton variant='rectangular' height={40} width={40} sx={{ marginRight: '1rem' }} />
+                             <ListItemText primary={<Skeleton width={200} />} secondary={<Skeleton width={100} />} />
+                          </ListItem>
+                       </ListItemButton>
+                    ))}
             </List>
          </Box>
       </Page>

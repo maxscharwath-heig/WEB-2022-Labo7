@@ -1,11 +1,12 @@
-import React from 'react'
+import React, { lazy, Suspense } from 'react'
 import { Drawer, Box } from '@mui/material'
 import { PlayerProvider } from './context/PlayerContext'
 import QueueTracksPanel from './components/QueueTracksPanel'
 import Player from './components/Player'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
-import PopularPlaylists from './components/PopularPlaylists'
-import Playlist from './components/Playlist'
+
+const Playlist = lazy(() => import('./components/Playlist'))
+const PopularPlaylists = lazy(() => import('./components/PopularPlaylists'))
 
 const drawerWidth = 330
 function App() {
@@ -16,8 +17,22 @@ function App() {
                <Box sx={{ display: 'flex', flexDirection: 'column', flex: 1 }}>
                   <BrowserRouter>
                      <Routes>
-                        <Route path='/' element={<PopularPlaylists />} />
-                        <Route path='/playlist/:id' element={<Playlist />} />
+                        <Route
+                           path='/'
+                           element={
+                              <Suspense fallback={<div>Loading Playlists...</div>}>
+                                 <PopularPlaylists />
+                              </Suspense>
+                           }
+                        />
+                        <Route
+                           path='/playlist/:id'
+                           element={
+                              <Suspense fallback={<div>Loading Playlist...</div>}>
+                                 <Playlist />
+                              </Suspense>
+                           }
+                        />
                      </Routes>
                   </BrowserRouter>
                </Box>
