@@ -12,7 +12,7 @@ function QueueTracksList({ queue, onSongClick, onButtonClick }) {
             <SongRow
               track={track}
               onClick={() => {
-                onSongClick(track);
+                onSongClick(index, track);
               }}
             >
               <Tooltip title="Remove song from queue" placement="left">

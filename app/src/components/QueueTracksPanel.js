@@ -5,6 +5,11 @@ import { PlayerContext } from "../context/PlayerContext";
 function QueueTracksPanel() {
   const { queue, playTrack, removeFromQueueAt } = useContext(PlayerContext);
 
+  const playAndRemoveSong = (index, track) => {
+    playTrack(track);
+    removeFromQueueAt(index);
+  };
+
   return (
     <>
       <div className="queue-header body-1">Queue · {queue.length} tracks</div>
@@ -15,7 +20,7 @@ function QueueTracksPanel() {
       )}
       <QueueTracksList
         queue={queue}
-        onSongClick={playTrack}
+        onSongClick={playAndRemoveSong}
         onButtonClick={removeFromQueueAt}
       />
     </>
