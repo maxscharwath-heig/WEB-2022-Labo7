@@ -36,7 +36,7 @@ export default function PopularPlaylists() {
           : [...Array(50)].map((_, index) => (
               <Grid item xs={1} sm={1} md={1} key={index}>
                 <Skeleton
-                  variant="rectangular"
+                  variant="rounded"
                   sx={{ height: "auto", width: "100%", aspectRatio: "1/1" }}
                 />
               </Grid>

@@ -40,7 +40,7 @@ function PlaylistInfo({ playlist }) {
 }
 
 export default function Playlist() {
-  const { addToQueue, playTrack } = useContext(PlayerContext);
+  const { addToQueue, playTrack, currentTrack } = useContext(PlayerContext);
   const [playlist, setPlaylist] = useState(null);
   const navigate = useNavigate();
   const { id } = useParams();
@@ -86,7 +86,7 @@ export default function Playlist() {
               />
             </Card>
           ) : (
-            <Skeleton variant="rectangular" width={250} height={250} />
+            <Skeleton variant="rounded" width={250} height={250} />
           )}
           <Box
             sx={{
@@ -122,10 +122,12 @@ export default function Playlist() {
         </Box>
         <List sx={{ overflow: "auto", flex: 1, mt: 2 }}>
           {playlist
-            ? playlist.tracks.data.map((track) => (
+            ? playlist.tracks.data.map((track, index) => (
                 <React.Fragment key={track.id}>
                   <SongRow
                     track={track}
+                    index={index + 1}
+                    isPlaying={currentTrack?.id === track.id}
                     onClick={(e) => handleClickTrack(e, track)}
                   >
                     <Tooltip title="Add song to queue" placement="left">
@@ -146,14 +148,14 @@ export default function Playlist() {
                 <ListItem key={index} disablePadding>
                   <ListItemButton>
                     <Skeleton
-                      variant="rectangular"
+                      variant="rounded"
                       height={40}
                       width={40}
-                      sx={{ marginRight: "1rem" }}
+                      sx={{ marginLeft: "1.5rem", marginRight: "1rem" }}
                     />
                     <ListItemText
-                      primary={<Skeleton width={200} />}
-                      secondary={<Skeleton width={100} />}
+                      primary={<Skeleton width={150 + Math.random() * 100} />}
+                      secondary={<Skeleton width={100 + Math.random() * 100} />}
                     />
                   </ListItemButton>
                 </ListItem>
