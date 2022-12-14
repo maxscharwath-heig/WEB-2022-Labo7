@@ -6,10 +6,21 @@ import QueueMusicIcon from '@mui/icons-material/QueueMusic'
 import Page from './Page'
 import { PlayerContext } from '../context/PlayerContext'
 import { useNavigate, useParams } from 'react-router-dom'
+import humanizeDuration from 'humanize-duration'
 
 const fetchPlaylist = async (playlistId) => {
    const response = await fetch(`http://localhost:8080/playlist/${playlistId}`)
    return await response.json()
+}
+
+function PlaylistInfo({ playlist }) {
+   const totalDurationMs = playlist.tracks.data.reduce((acc, track) => acc + track.duration, 0)*1000;
+   const humanizedDuration = humanizeDuration(totalDurationMs, { round: true, largest: 2 })
+   const creationYear = new Date(playlist.creation_date).getFullYear()
+
+   return (
+       `${creationYear} · ${playlist.nb_tracks} tracks · ${humanizedDuration}`
+   )
 }
 
 export default function Playlist() {
@@ -29,20 +40,6 @@ export default function Playlist() {
    function handleClickTrack(e, track) {
       e.stopPropagation()
       playTrack(track)
-   }
-
-   const creationYear = () => {
-      if (playlist) {
-         return new Date(playlist.creation_date).getFullYear()
-      }
-      return ''
-   }
-
-   const playlistDurationMinutes = () => {
-      if (playlist) {
-         return Math.ceil(playlist.duration / 60)
-      }
-      return ''
    }
 
    return (
@@ -82,7 +79,7 @@ export default function Playlist() {
                   <br></br>
                   <small>
                      {playlist ? (
-                        `${creationYear()} · ${playlist?.nb_tracks} tracks · ${playlistDurationMinutes()} minutes`
+                        <PlaylistInfo playlist={playlist} />
                      ) : (
                         <Skeleton width={200} />
                      )}
