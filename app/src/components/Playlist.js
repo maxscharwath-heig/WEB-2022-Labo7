@@ -15,7 +15,7 @@ import {
 } from "@mui/material";
 import { ArrowBack } from "@mui/icons-material";
 import SongRow from "./SongRow";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useMemo, useState } from 'react'
 import QueueMusicIcon from "@mui/icons-material/QueueMusic";
 import Page from "./Page";
 import { PlayerContext } from "../context/PlayerContext";
@@ -40,7 +40,7 @@ function PlaylistInfo({ playlist }) {
 }
 
 export default function Playlist() {
-  const { addToQueue, playTrack, currentTrack } = useContext(PlayerContext);
+  const { addToQueue, playTrack, currentTrack } = useContext(PlayerContext)
   const [playlist, setPlaylist] = useState(null);
   const navigate = useNavigate();
   const { id } = useParams();

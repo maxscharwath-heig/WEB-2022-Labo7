@@ -7,11 +7,6 @@ export const PlayerProvider = ({ children }) => {
   const [queue, setQueue] = useState([]);
   const [currentTrack, setCurrentTrack] = useState(null);
   const [audio] = useState(new Audio());
-  const [audioState, setAudioState] = useState({
-    currentTime: 0,
-    duration: 0,
-    isPlaying: false,
-  });
 
   const addToQueue = (...tracks) => {
     setQueue([...queue, ...tracks]);
@@ -22,7 +17,7 @@ export const PlayerProvider = ({ children }) => {
   };
 
   const toggleTrack = () => {
-    if (audioState.isPlaying) {
+    if (!audio.paused) {
       audio.pause();
     } else {
       if (!currentTrack && queue.length > 0) {
@@ -53,7 +48,7 @@ export const PlayerProvider = ({ children }) => {
   };
 
   const playPrevious = () => {
-    if (audioState.currentTime >= 4) {
+    if (audio.currentTime >= 4) {
       audio.currentTime = 0;
       return;
     }
@@ -72,23 +67,10 @@ export const PlayerProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    const updateAudioState = () => {
-      setAudioState({
-        currentTime: audio.currentTime,
-        duration: audio.duration,
-        isPlaying: !audio.paused,
-      });
-    };
     audio.addEventListener("ended", playNext);
-    audio.addEventListener("play", updateAudioState);
-    audio.addEventListener("pause", updateAudioState);
-    audio.addEventListener("timeupdate", updateAudioState);
 
     return () => {
       audio.removeEventListener("ended", playNext);
-      audio.removeEventListener("play", updateAudioState);
-      audio.removeEventListener("pause", updateAudioState);
-      audio.removeEventListener("timeupdate", updateAudioState);
     };
   });
 
@@ -97,7 +79,7 @@ export const PlayerProvider = ({ children }) => {
       value={{
         queue,
         currentTrack,
-        audioState,
+        audio,
         addToQueue,
         toggleTrack,
         playTrack,

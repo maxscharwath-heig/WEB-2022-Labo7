@@ -58,7 +58,7 @@ function PlaySlider({ currentTime, duration, setCurrentTime }) {
 
 const Player = () => {
   const {
-    audioState,
+    audio,
     currentTrack,
     toggleTrack,
     playPrevious,
@@ -70,6 +70,32 @@ const Player = () => {
   const buttonsActive = () => {
     return currentTrack != null || (!currentTrack && queue.length > 0);
   };
+
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [audioState, setAudioState] = useState({
+    currentTime: 0,
+    duration: 0,
+  });
+  useEffect(() => {
+    const updateAudioState = () => {
+      setAudioState({
+        currentTime: audio.currentTime,
+        duration: audio.duration,
+      });
+    };
+    const handlePlay = () => {
+      setIsPlaying(!audio.paused);
+    }
+    audio.addEventListener("play", handlePlay);
+    audio.addEventListener("pause", handlePlay);
+    audio.addEventListener("timeupdate", updateAudioState);
+
+    return () => {
+      audio.removeEventListener("play", handlePlay);
+      audio.removeEventListener("pause", handlePlay);
+      audio.removeEventListener("timeupdate", updateAudioState);
+    };
+  });
 
   return (
     <Box
@@ -125,7 +151,7 @@ const Player = () => {
                 }}
                 disabled={!buttonsActive()}
               >
-                {audioState.isPlaying ? <Pause /> : <PlayArrow />}
+                {isPlaying ? <Pause /> : <PlayArrow />}
               </IconButton>
               <IconButton
                 onClick={() => {
