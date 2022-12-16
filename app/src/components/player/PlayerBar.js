@@ -1,21 +1,11 @@
-import {
-  Avatar,
-  Box,
-  Grid,
-  IconButton,
-  Slider,
-  Stack,
-  Typography,
-} from "@mui/material";
+import { Avatar, Box, Grid, Typography } from "@mui/material";
 import { PlayerContext } from "../../context/PlayerContext";
-import { useContext, useEffect, useState } from "react";
+import { useContext } from "react";
 import MusicNoteIcon from "@mui/icons-material/MusicNote";
-import Player from './Player'
+import Player from "./Player";
 
 const PlayerBar = () => {
-  const {
-    currentTrack,
-  } = useContext(PlayerContext);
+  const { currentTrack } = useContext(PlayerContext);
 
   return (
     <Box
@@ -48,7 +38,7 @@ const PlayerBar = () => {
             </Box>
           )}
         </Grid>
-        <Player/>
+        <Player />
         <Grid item xs={4} paddingRight={2}>
           <Box textAlign="right">
             <Typography

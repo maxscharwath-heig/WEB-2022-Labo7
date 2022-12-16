@@ -15,7 +15,7 @@ import {
 } from "@mui/material";
 import { ArrowBack } from "@mui/icons-material";
 import SongRow from "./SongRow";
-import React, { useContext, useEffect, useMemo, useState } from 'react'
+import React, { useContext, useEffect, useState } from "react";
 import QueueMusicIcon from "@mui/icons-material/QueueMusic";
 import Page from "./Page";
 import { PlayerContext } from "../context/PlayerContext";
@@ -40,7 +40,7 @@ function PlaylistInfo({ playlist }) {
 }
 
 export default function Playlist() {
-  const { addToQueue, playTrack, currentTrack } = useContext(PlayerContext)
+  const { addToQueue, playTrack, currentTrack } = useContext(PlayerContext);
   const [playlist, setPlaylist] = useState(null);
   const navigate = useNavigate();
   const { id } = useParams();
@@ -78,7 +78,7 @@ export default function Playlist() {
           }}
         >
           {playlist ? (
-            <Card sx={{ width: 250, height: 250}}>
+            <Card sx={{ width: 250, height: 250 }}>
               <CardMedia
                 component="img"
                 image={playlist.picture_medium}
@@ -91,7 +91,7 @@ export default function Playlist() {
           <Box
             sx={{
               paddingLeft: 2,
-              flex:1
+              flex: 1,
             }}
           >
             <Typography
@@ -144,8 +144,7 @@ export default function Playlist() {
                   <Divider component="li" />
                 </React.Fragment>
               ))
-            : // 10 Skeletons for 10 tracks
-              [...Array(10)].map((_, index) => (
+            : [...Array(10)].map((_, index) => (
                 <ListItem key={index} disablePadding>
                   <ListItemButton>
                     <Skeleton

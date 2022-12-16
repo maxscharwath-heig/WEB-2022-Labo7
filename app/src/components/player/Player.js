@@ -1,7 +1,7 @@
-import { Grid, IconButton, Slider, Stack } from '@mui/material'
-import { Pause, PlayArrow, SkipNext, SkipPrevious } from '@mui/icons-material'
-import { useContext, useEffect, useState } from 'react'
-import { PlayerContext } from '../../context/PlayerContext'
+import { Grid, IconButton, Slider, Stack } from "@mui/material";
+import { Pause, PlayArrow, SkipNext, SkipPrevious } from "@mui/icons-material";
+import { useContext, useEffect, useState } from "react";
+import { PlayerContext } from "../../context/PlayerContext";
 
 function FormattedTime({ duration }) {
   if (!duration) return <small>-:-</small>;
@@ -79,7 +79,7 @@ const Player = () => {
   useEffect(() => {
     const handlePlay = () => {
       setIsPlaying(!audio.paused);
-    }
+    };
     audio.addEventListener("play", handlePlay);
     audio.addEventListener("pause", handlePlay);
 
@@ -127,7 +127,7 @@ const Player = () => {
         )}
       </Stack>
     </Grid>
-  )
-}
+  );
+};
 
-export default Player
+export default Player;

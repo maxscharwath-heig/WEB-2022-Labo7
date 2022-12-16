@@ -33,7 +33,7 @@ export default function PopularPlaylists() {
                 />
               </Grid>
             ))
-          : [...Array(50)].map((_, index) => (
+          : [...Array(20)].map((_, index) => (
               <Grid item xs={1} sm={1} md={1} key={index}>
                 <Skeleton
                   variant="rounded"

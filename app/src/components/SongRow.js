@@ -14,7 +14,7 @@ const SongRow = ({ isPlaying, index, track, onClick, children }) => {
   return (
     <ListItem secondaryAction={children} disablePadding>
       <ListItemButton
-        selected = {isPlaying}
+        selected={isPlaying}
         onClick={onClick}
         sx={{
           display: "flex",
@@ -51,11 +51,15 @@ const SongRow = ({ isPlaying, index, track, onClick, children }) => {
                 bgcolor: "rgba(0, 0, 0, 0.54)",
               }}
             >
-                <PlayingIcon/>
+              <PlayingIcon />
             </Box>
           )}
         </Card>
-        <ListItemText primary={track.title} secondary={track.artist.name} sx={{ flex:1 }} />
+        <ListItemText
+          primary={track.title}
+          secondary={track.artist.name}
+          sx={{ flex: 1 }}
+        />
       </ListItemButton>
     </ListItem>
   );
