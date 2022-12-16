@@ -19,9 +19,22 @@ function FormattedTime({ duration }) {
   );
 }
 
-function PlaySlider({ currentTime, duration, setCurrentTime }) {
+function PlaySlider({ audio, setCurrentTime }) {
   const [value, setValue] = useState(0);
-  // set value with props but keep the possibility to change it with the slider
+  const [{ duration, currentTime }, setAudioState] = useState(audio);
+  useEffect(() => {
+    const updateAudioState = () => {
+      setAudioState({
+        duration: audio.duration,
+        currentTime: audio.currentTime,
+      });
+    };
+    audio.addEventListener("timeupdate", updateAudioState);
+
+    return () => {
+      audio.removeEventListener("timeupdate", updateAudioState);
+    };
+  }, [audio]);
 
   useEffect(() => {
     setValue(currentTime);
@@ -63,28 +76,16 @@ const Player = () => {
   };
 
   const [isPlaying, setIsPlaying] = useState(false);
-  const [audioState, setAudioState] = useState({
-    currentTime: 0,
-    duration: 0,
-  });
   useEffect(() => {
-    const updateAudioState = () => {
-      setAudioState({
-        currentTime: audio.currentTime,
-        duration: audio.duration,
-      });
-    };
     const handlePlay = () => {
       setIsPlaying(!audio.paused);
     }
     audio.addEventListener("play", handlePlay);
     audio.addEventListener("pause", handlePlay);
-    audio.addEventListener("timeupdate", updateAudioState);
 
     return () => {
       audio.removeEventListener("play", handlePlay);
       audio.removeEventListener("pause", handlePlay);
-      audio.removeEventListener("timeupdate", updateAudioState);
     };
   });
 
@@ -122,7 +123,7 @@ const Player = () => {
         </IconButton>
 
         {currentTrack && (
-          <PlaySlider setCurrentTime={setCurrentTime} {...audioState} />
+          <PlaySlider setCurrentTime={setCurrentTime} audio={audio} />
         )}
       </Stack>
     </Grid>
