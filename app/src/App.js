@@ -2,7 +2,7 @@ import React from "react";
 import { Drawer, Box } from "@mui/material";
 import { PlayerProvider } from "./context/PlayerContext";
 import QueueTracksPanel from "./components/QueueTracksPanel";
-import Player from "./components/Player";
+import PlayerBar from "./components/player/PlayerBar";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import PopularPlaylists from "./components/PopularPlaylists";
 import Playlist from "./components/Playlist";
@@ -40,7 +40,7 @@ function App() {
             </Box>
           </Drawer>
         </Box>
-        <Player />
+        <PlayerBar />
       </Box>
     </PlayerProvider>
   );
