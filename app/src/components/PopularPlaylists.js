@@ -34,7 +34,7 @@ export default function PopularPlaylists() {
               </Grid>
             ))
           : [...Array(20)].map((_, index) => (
-              <Grid item xs={1} sm={1} md={1} key={index}>
+              <Grid item xs={1} sm={1} md={1} key={index}> { /* Fine but I would create a local component to keep the code clean and simple */}
                 <Skeleton
                   variant="rounded"
                   sx={{ height: "auto", width: "100%", aspectRatio: "1/1" }}
@@ -45,3 +45,17 @@ export default function PopularPlaylists() {
     </Page>
   );
 }
+
+// example of a local component
+const SkeletonCard = () => (
+    <>
+      { [...Array(20)].map((_, index) => (
+        <Grid item xs={1} sm={1} md={1} key={index}>
+            <Skeleton
+                variant="rounded"
+                sx={{ height: "auto", width: "100%", aspectRatio: "1/1" }}
+            />
+        </Grid>
+      ))}
+    </>
+)

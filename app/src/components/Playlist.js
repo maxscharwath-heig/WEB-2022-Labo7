@@ -131,6 +131,7 @@ export default function Playlist() {
                     isPlaying={currentTrack?.id === track.id}
                     onClick={(e) => handleClickTrack(e, track)}
                   >
+                    { /* Ok but in this case I would prefer a prop "actions" instead of children, its more obvious */ }
                     <Tooltip title="Add song to queue" placement="left">
                       <IconButton
                         aria-label="add to queue"
@@ -142,6 +143,7 @@ export default function Playlist() {
                     </Tooltip>
                   </SongRow>
                   <Divider component="li" />
+                  {/* <React.Fragment> = <> */ }
                 </React.Fragment>
               ))
             : [...Array(10)].map((_, index) => (

@@ -11,6 +11,15 @@ const drawerWidth = 330;
 function App() {
   return (
     <PlayerProvider>
+        {/*
+            OK but you could refactor the layout part into the Layout component
+            and just render the children here
+            <PlayerProvider>
+            <Layout>
+                <BrowserRouter>...</BrowserRouter>
+            </Layout>
+            </PlayerProvider>
+         */}
       <Box sx={{ display: "flex", height: "100vh", flexDirection: "column" }}>
         <Box
           component="main"

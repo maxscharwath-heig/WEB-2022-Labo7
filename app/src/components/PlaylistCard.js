@@ -6,12 +6,17 @@ import Typography from "@mui/material/Typography";
 import { CardActionArea } from "@mui/material";
 
 const PlaylistCard = ({ playlist, onCardClick }) => {
+    /*
+        You can have errors in case playlist is undefined
+        You can use the optional chaining operator to avoid this
+        or you can use the default value of the parameter
+    */
   return (
     <Card position="relative">
       <CardActionArea onClick={() => onCardClick(playlist)}>
         <CardMedia
           component="img"
-          image={playlist.picture_big}
+          image={playlist.picture_big} // playlist?.picture_big
           alt={playlist.title}
         />
         <CardContent

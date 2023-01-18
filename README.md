@@ -74,13 +74,13 @@ npm run start
 
 ## Evaluation
 
-We will evaluate:
+Total pts : 100
 
-- That the [requirements](#Requirements) are fulfilled.
-- Good seperation of your app in components.
-- Quality of components, props and functions names.
-- Avoid code duplication. (principe DRY (don't repeat yourself))
-- No error in the browser console.
-
+That the requirements are fulfilled. - 70/70 
+Good seperation of your app in components. - 10/10 
+Quality of components, props and functions names. - 10/10 
+Avoid code duplication. (principe DRY (don't repeat yourself)) - 5/5
+No error in the browser console. - 5/5 
+note:  100/100 * 5 + 1 = 6
 
 *Enjoy coding* 😊
