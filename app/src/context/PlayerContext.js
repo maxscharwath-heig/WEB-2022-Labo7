@@ -6,6 +6,9 @@ export const PlayerProvider = ({ children }) => {
   const [pastTracks, setPastTracks] = useState([]);
   const [queue, setQueue] = useState([]);
   const [currentTrack, setCurrentTrack] = useState(null);
+
+  // a state without setState? You could just declare a module level variable, on line 4 for example
+  // you are only setting the value once, so it's not really a state
   const [audio] = useState(new Audio());
 
   const addToQueue = (...tracks) => {
@@ -16,6 +19,8 @@ export const PlayerProvider = ({ children }) => {
     setQueue(queue.filter((_, index) => index !== targetIndex));
   };
 
+
+  /* Its fine but a useReducer might be interesting in this case  */
   const toggleTrack = () => {
     if (!audio.paused) {
       audio.pause();
@@ -31,7 +36,7 @@ export const PlayerProvider = ({ children }) => {
   const playTrack = (track) => {
     setCurrentTrack(track);
     audio.src = track.preview;
-    document.title = track.title;
+    document.title = track.title; // context should not be responsible for this
     audio.play();
   };
 
